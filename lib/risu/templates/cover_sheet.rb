@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2013 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -27,62 +27,66 @@
 module Risu
 	module Templates
 		class CoverSheet < Risu::Base::TemplateBase
-			include TemplateHelper
 
+			#
+			#
 			def initialize ()
 				@template_info =
 				{
 					:name => "cover_sheet",
 					:author => "hammackj",
-					:version => "0.0.3",
+					:version => "0.0.2",
 					:description => "Generates a coversheet with a logo (Example Template)"
 				}
 			end
 
+			#
+			#
 			def render(output)
 				output.image "#{File.expand_path(File.dirname(__FILE__))}/data/nessuslogo.jpg", :scale => 0.2, :position => :left, :vposition => :top
 
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
 
-				text Report.classification.upcase, :align => :center
-				text "\n"
+				output.font_size(24) do
+					output.text Report.title, :align => :center
+				end
 
-				report_title Report.title
-				report_subtitle "Coversheet Example"
-				report_author "This report was prepared by\n#{Report.author}"
+				output.font_size(18) do
+				    output.text "Coversheet Example", :align => :center
+				    output.text "\n"
+				    output.text "This report was prepared by\n#{Report.author}", :align => :center
+				end
 
-				text "\n\n\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
+				output.text "\n"
 
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-				text "\n"
-
-				text "Nessus is a Registered Trademark of Tenable Network Security, Inc."
+				output.text "Nessus is a Registered Trademark of Tenable Network Security, Inc."
 			end
 		end
 	end

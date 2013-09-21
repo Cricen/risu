@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2013 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -27,8 +27,9 @@
 module Risu
 	module Templates
 		class MSPatchSummary < Risu::Base::TemplateBase
-			include TemplateHelper
 
+			#
+			#
 			def initialize ()
 				@template_info =
 				{
@@ -39,15 +40,20 @@ module Risu
 				}
 			end
 
+			#
+			#
 			def render(output)
-				text Report.classification.upcase, :align => :center
-				text "\n"
+				output.text Report.classification.upcase, :align => :center
+				output.text "\n"
 
-				report_title Report.title
-				report_subtitle "Missing Microsoft Patch Summary"
-				report_author "This report was prepared by\n#{Report.author}"
+				output.font_size(22) { output.text Report.title, :align => :center }
+				output.font_size(18) {
+					output.text "Missing Microsoft Patch Summary", :align => :center
+					output.text "\n"
+					output.text "This report was prepared by\n#{Report.author}", :align => :center
+				}
 
-				text "\n\n\n"
+				output.text "\n\n\n"
 
 				Item.ms_patches.each do |item|
 					host = Host.find_by_id(item.host_id)
@@ -55,23 +61,24 @@ module Risu
 					next if host == nil
 
 					if host.name != nil
-						text "Host:", :style => :bold
-						text host.name
+						output.text "Host:", :style => :bold
+						output.text host.name
 					end
 
 					if host.os != nil
-						text "OS:", :style => :bold
-						text host.os
+						output.text "OS:", :style => :bold
+						output.text host.os
 					end
 
 					if host.mac != nil
-						text "Mac:", :style => :bold
-						text host.mac
+						output.text "Mac:", :style => :bold
+						output.text host.mac
 					end
-					text "\n"
-					text item.plugin_output
-					text "\n"
+					output.text "\n"
+					output.text item.plugin_output
+					output.text "\n"
 				end
+
 			end
 		end
 	end

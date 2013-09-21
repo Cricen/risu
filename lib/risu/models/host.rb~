@@ -66,17 +66,17 @@ module Risu
 
 
 				def sorted_dept
-					hosts = Host.where("ip is not NULL").order("ip").all
+					dept = Department.where("name is not NULL").order("name").all
 
 					#Sort the ips in natural order.
-					hosts.sort! do |a,b|
-						ip1 = IPAddr.new a.ip
-						ip2 = IPAddr.new b.ip
+					dept.sort! do |a,b|
+						ip1 = IPAddr.new a.name
+						ip2 = IPAddr.new b.name
 
 						ip1 <=> ip2
 					end
 
-					return hosts
+					return dept
 				end
 
 

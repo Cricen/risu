@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2013 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -30,8 +30,6 @@ module Risu
 		# Base template class, all report templates must be a subclass of this.
 		#
 		class TemplateBase
-			attr_accessor :output
-
 			@possible_templates = []
 
 			class << self

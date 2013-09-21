@@ -26,14 +26,14 @@
 
 module Risu
 	module Templates
-		class Assets < Risu::Base::TemplateBase
+		class Assets_new2 < Risu::Base::TemplateBase
 
 			#
 			#
 			def initialize ()
 				@template_info =
 				{
-					:name => "assets",
+					:name => "assets_new2",
 					:author => "hammackj",
 					:version => "0.0.1",
 					:description => "Generates a Assets Summary Report"
@@ -59,23 +59,62 @@ module Risu
 				end
 
 				output.text "\n\n"
-		
+					
+				# admin = Array.new
+				# admin = System_admin.find_by_sql("SELECT * FROM system_admins INNER JOIN hosts ON system_admins.id = hosts.system_admin_id")
+				# sys_admin = Array.new	
+				# admin = System_admin.joins('LEFT OUTER JOIN hosts ON hosts.system_admin_id = system_admins.id').first.admin
 
-	    			hosts = Host.find_by_sql("SELECT * FROM hosts INNER JOIN system_admins ON hosts.system_admin_id = system_admins.id INNER JOIN departments ON system_admins.department_id = departments.id ORDER BY departments.department_name ASC")
+				# admin = sys_admin.where(
 
-				hosts.each do |host| 
+			#admin = ActiveRecord::Base.connection.select_all('SELECT system_admins.admin FROM system_admins INNER JOIN hosts ON system_admins.host_id = hosts.system_admin_id')	
+
+
+			#SystemAdmin.admin.each do |admin|
+				#output.text "Host: #{admins}\n"
+                        	#output.text "Admin: #{system_admin.admin}\n\n"
+			#end
+
+			
+
+			#output.text "Test: #{admins.first.system_admin.admin}"
+
+			#hosts = Host.joins(:system_admin)
+
+			sys = SystemAdmin.joins(:department)
+
+    			hosts = Host.find_by_sql("SELECT * FROM hosts INNER JOIN system_admins ON hosts.system_admin_id = system_admins.id INNER JOIN departments ON system_admins.department_id = departments.id ORDER BY departments.department_name ASC")
+
+			hosts.each do |host| 
+				output.text "Name: #{host.name}\n"
+				output.text "FQDN: #{host.fqdn}\n" unless host.fqdn == nil
+				output.text "IP Address: #{host.ip}\n" unless host.ip == nil
+				output.text "NetBios: #{host.netbios}\n" unless host.netbios == nil
+				output.text sprintf "Mac Address: %s\n", host.mac.chomp.gsub("\n", ", ") unless host.mac == nil
+				output.text sprintf "Operation System: %s\n", host.os.chomp.gsub("\n", "/") unless host.os == nil
+				output.text "Admin: #{host.system_admin.admin}\n"
+				output.text "Department: #{host.department_name}\n\n"
+			end
+	
+
+=begin
+			Host.sorted.each do |host|
+
+					getadmin = Host.joins(:system_admin).all
+
+					a = getadmin.first.system_admin.admin
+
 					output.text "Name: #{host.name}\n"
 					output.text "FQDN: #{host.fqdn}\n" unless host.fqdn == nil
 					output.text "IP Address: #{host.ip}\n" unless host.ip == nil
 					output.text "NetBios: #{host.netbios}\n" unless host.netbios == nil
 					output.text sprintf "Mac Address: %s\n", host.mac.chomp.gsub("\n", ", ") unless host.mac == nil
 					output.text sprintf "Operation System: %s\n", host.os.chomp.gsub("\n", "/") unless host.os == nil
-					output.text "Admin: #{host.system_admin.admin}\n"
-					output.text "Department: #{host.department_name}\n\n"
+					output.text "System admin: #{a}\n"
+					output.text "\n"
+
 				end
-	
-
-
+=end
 			end
 		end
 	end

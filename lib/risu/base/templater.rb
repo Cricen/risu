@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2013 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,6 +28,7 @@ module Risu
 	module Base
 
 		# Templater class for generating a report from a ERB template
+		#
 		class Templater
 			attr_accessor :template, :template_manager, :findings, :output_file
 
@@ -42,16 +43,16 @@ module Risu
 			end
 
 			# Generates a report based on the ERB template
+			#
 			def generate
 				begin
 					template = @template
 					template_manager = @template_manager
 
 					Prawn::Document.generate(@output_file, :margin => [75, 50, 75, 50]) do |output|
-						output.font_size 10
+						output.font_size 12
 						t = template_manager.find_template_by_name(template)
 						t = t.class.new
-						t.output = output
 						t.render(output) unless t == nil
 					end
 				rescue => e

@@ -1,4 +1,4 @@
-# Copyright (c) 2012 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,90 +26,54 @@
 
 module Risu
 	module Templates
-		module TemplateHelper
+		class FindingStatistics < Risu::Base::TemplateBase
 
 			#
-			def report_classification classification=Report.classification.upcase, newline=true
-				@output.font_size(12) do
-					@output.text classification, :align => :center
-					@output.text "\n" if newline
-				end
+			#
+			def initialize ()
+				@template_info =
+				{
+					:name => "finding_statistics",
+					:author => "hammackj",
+					:version => "0.0.1",
+					:description => "Generates report finding statistics"
+				}
 			end
 
 			#
-			def report_title title, newline=false
-				@output.font_size(24) do
-					@output.text title, :align => :center
-					@output.text "\n" if newline
-				end
-			end
-
 			#
-			def report_subtitle title, newline=false
-				@output.font_size(18) do
-					@output.text title, :align => :center
-					@output.text "\n" if newline
-				end
-			end
+			def render(output)
+				output.text Report.classification.upcase, :align => :center
+				output.text "\n"
 
-			#
-			def report_author author, newline=false
-				@output.font_size(14) do
-					@output.text author, :align => :center
-					@output.text "\n" if newline
-				end
-			end
+				output.font_size(22) { output.text Report.title, :align => :center }
+				output.font_size(18) {
+					output.text "Finding Statistics", :align => :center
+					output.text "\n"
+					output.text "This report was prepared by\n#{Report.author}", :align => :center
+				}
 
-			#
-			def text(text, options = {})
-				if text == nil
-					text = ""
-				end
-				
-				@output.text text, options
-			end
+				output.text "\n\n\n"
 
-			#
-			def heading1 title
-				@output.font_size(24) do
-					@output.text title, :style => :bold
-				end
-			end
+				dept = Department.find_by_sql("SELECT * FROM departments")
+				admin = SystemAdmin.find_by_sql("SLECT * FROM system_admins")
 
-			#
-			def heading2 title
-				@output.font_size(18) do
-					@output.text title, :style => :bold
-				end
-			end
+				output.text "Scan Date:", :style => :bold
+				output.text "#{Report.scan_date}"
+				output.text "\n"
 
-			#
-			def heading3 title
-				@output.font_size(14) do
-					@output.text title, :style => :bold
-				end
-			end
+				headers = ["Number of hosts","Number of risks","High Risks", "Medium Risks", "Low Risks", "Info Risks", "Number of Departments", "Number of Admins"]
+				data = [Host.count, Item.risks.count, Item.high_risks.count, Item.medium_risks.count, Item.low_risks.count, Item.info_risks.count, dept.count, admin.count]
 
-			#
-			def heading4 title
-				@output.font_size(12) do
-					@output.text title, :style => :bold
+				output.table([headers] + [data], :header => true, :width => output.bounds.width) do
+					row(0).style(:font_style => :bold, :background_color => 'cccccc')
+					cells.borders = [:top, :bottom, :left, :right]
 				end
-			end
 
-			#
-			def heading5 title
-				@output.font_size(10) do
-					@output.text title, :style => :bold
-				end
-			end
-
-			#
-			def heading6 title
-				@output.font_size(8) do
-					@output.text title, :style => :bold
-				end
 			end
 		end
 	end
 end
+
+
+

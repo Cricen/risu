@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2013 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ module Risu
 
 			class << self
 
-				attr_accessor :title, :author, :company, :classification, :extra
+				attr_accessor :title, :author, :company, :classification
 
 				#
 				#@scan_date = Host.where("start is not null").first[:start].to_s

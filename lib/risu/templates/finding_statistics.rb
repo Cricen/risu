@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2013 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -55,12 +55,15 @@ module Risu
 
 				output.text "\n\n\n"
 
+				dept = Department.find_by_sql("SELECT * FROM departments")
+				admin = SystemAdmin.find_by_sql("SELECT * FROM system_admins")
+
 				output.text "Scan Date:", :style => :bold
 				output.text "#{Report.scan_date}"
 				output.text "\n"
 
-				headers = ["Number of hosts","Number of risks","High Risks", "Medium Risks", "Low Risks", "Info Risks"]
-				data = [Host.count, Item.risks.count, Item.high_risks.count, Item.medium_risks.count, Item.low_risks.count, Item.info_risks.count]
+				headers = ["Number of hosts","Number of risks","High Risks", "Medium Risks", "Low Risks", "Info Risks", "Number of Departments", "Number of Admins"]
+				data = [Host.count, Item.risks.count, Item.high_risks.count, Item.medium_risks.count, Item.low_risks.count, Item.info_risks.count, dept.count, admin.count]
 
 				output.table([headers] + [data], :header => true, :width => output.bounds.width) do
 					row(0).style(:font_style => :bold, :background_color => 'cccccc')

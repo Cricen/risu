@@ -69,7 +69,7 @@ module Risu
 
 							output.text "#{host_string}", :style => :bold
 							
-							output.font_size(10) do
+							output.font_size(12) do
 								output.text "Admin: #{host.system_admin.admin}\n"
 								output.text "Department: #{host.department_name}\n\n"
 							end

@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2013 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,31 +26,35 @@
 
 module Risu
 	module Templates
-		class NotableTemplate < Risu::Base::TemplateBase
-			include TemplateHelper
+		class Top10 < Risu::Base::TemplateBase
 
-			#Creates an instance of the [NotableTemplate] class and initializes its meta-data
+			# @todo comments
+			#
 			def initialize ()
 				@template_info =
 				{
 					:name => "notable",
 					:author => "hammackj",
-					:version => "0.0.3",
+					:version => "0.0.2",
 					:description => "Notable Vulnerabilities"
 				}
 			end
 
-			# Renders a Notable Findings Report
+			# @todo comments
+			#
 			def render(output)
 				output.text Report.classification.upcase, :align => :center
 				output.text "\n"
 
-				report_title Report.title
-				report_subtitle "Notable Vulnerabilities"
+				output.font_size(22) {
+					output.text Report.title, :align => :center
+				}
 
-				output.font_size(14) do
+				output.font_size(18) {
+					output.text "Notable Vulnerabilities", :align => :center
+					output.text "\n"
 					output.text "This report was prepared by\n#{Report.author}", :align => :center
-				end
+				}
 
 				output.text "\n\n\n"
 

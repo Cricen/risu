@@ -27,10 +27,23 @@
 module Risu
 	module Models
 
-		# Patch Model
+		# System_admin  Model
 		#
-		class Patch < ActiveRecord::Base
-			belongs_to :host
+		class SystemAdmin < ActiveRecord::Base
+		 has_one :host
+
+			class << self
+
+			#	def dept
+			#		Department.joins('LEFT OUTER JOIN hosts ON hosts.system_admin_id = departments.id')
+			#	end
+
+			def getadmin
+				#
+				
+			end		
+		
+			end
 		end
 	end
 end

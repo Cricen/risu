@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2013 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -32,4 +32,3 @@ end
 require 'risu/base/template_base'
 require 'risu/base/template_manager'
 require 'risu/base/templater'
-require 'risu/base/template_helper'

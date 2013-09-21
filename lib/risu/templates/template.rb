@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2013 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -21,13 +21,12 @@
 # LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
 # OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
-# OF THE POSSIBILITY OF SUCH DAMAGE.
+#OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+#OF THE POSSIBILITY OF SUCH DAMAGE.
 
 module Risu
 	module Templates
 		class Template < Risu::Base::TemplateBase
-			include TemplateHelper
 
 			# Initializes the template loading meta data
 			#
@@ -36,7 +35,7 @@ module Risu
 				{
 					:name => "template",
 					:author => "hammackj",
-					:version => "0.0.3",
+					:version => "0.0.2",
 					:description => "template"
 				}
 			end
@@ -44,7 +43,7 @@ module Risu
 			# Called during the rendering process
 			#
 			def render(output)
-				text "Template"
+				output.text "Template"
 				output.start_new_page
 			end
 		end

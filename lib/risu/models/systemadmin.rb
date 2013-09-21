@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2013 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -27,10 +27,24 @@
 module Risu
 	module Models
 
-		# HostProperty Model
+		# System_admin  Model
 		#
-		class HostProperty < ActiveRecord::Base
-			belongs_to :host
+		class SystemAdmin < ActiveRecord::Base
+		 has_one :host
+		 belongs_to :department
+
+			class << self
+
+			#	def dept
+			#		Department.joins('LEFT OUTER JOIN hosts ON hosts.system_admin_id = departments.id')
+			#	end
+
+			def getadmin
+				#
+				
+			end		
+		
+			end
 		end
 	end
 end

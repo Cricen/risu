@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2013 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -28,47 +28,11 @@ module Risu
 	module Models
 
 		# Reference Model
+		#
 		class Reference < ActiveRecord::Base
 		  has_many :plugins
 
 			class << self
-
-				#Generates a full string of all the references
-				#
-				# @returns [String] of all the references with in-line formatting for
-				# direct output to the report
-				def reference_string
-					reference_names = ["cve", "cpe", "bid", "see_also", "iava", "msft",
-						"osvdb", "cert", "edbid", "rhsa", "secunia", "suse", "dsa",
-						"owasp", "cwe", "iavb", "iavt", "cisco_sa", "ics_alert",
-						"cisco_bug_id", "cisco_sr", "cert_vu", "vmsa", "cert_cc",
-						"msvr", "apple_sa", "icsa"
-					]
-
-					ref_string = ""
-
-					reference_names.each do |type|
-						ref = reference_string_by self.send(type)
-
-						ref_string << "<b>#{type}</b>: #{ref}\n" if ref.length != 0
-					end
-
-					ref_string
-				end
-
-				# Generates a string of all the references of the specified type
-				#
-				# @param type Result of a [Reference] model reference accessors
-				#
-				# @return [String] containing all references of type comma separated
-				def reference_string_by type
-					rstring = []
-					type.each do |ref|
-						rstring << ref.value
-					end
-
-					rstring.join(", ")
-				end
 
 				# Queries all unique CVEs
 				#
@@ -118,43 +82,43 @@ module Risu
 					where(:reference_name => "cert").select('DISTINCT value')
 				end
 
-				# Queries all unique edbid refs
+				#
 				#
 				def edbid
 					where(:reference_name => "edb-id").select('DISTINCT value')
 				end
 
-				# Queries all unique rhsa refs
+				#
 				#
 				def rhsa
 					where(:reference_name => "rhsa").select('DISTINCT value')
 				end
 
-				# Queries all unique secunia refs
+				#
 				#
 				def secunia
 					where(:reference_name => "secunia").select('DISTINCT value')
 				end
 
-				# Queries all unique suse refs
+				#
 				#
 				def suse
 					where(:reference_name => "suse").select('DISTINCT value')
 				end
 
-				# Queries all unique dsa refs
+				#
 				#
 				def dsa
 					where(:reference_name => "dsa").select('DISTINCT value')
 				end
 
-				# Queries all unique owasp refs
+				#
 				#
 				def owasp
 					where(:reference_name => "owasp").select('DISTINCT value')
 				end
 
-				# Queries all unique cwe refs
+				#
 				#
 				def cwe
 					where(:reference_name => "cwe").select('DISTINCT value')
@@ -207,36 +171,6 @@ module Risu
 				def vmsa
 					where(:reference_name => "vmsa").select('DISTINCT value')
 				end
-
-				#
-				#
-				def cert_cc
-					where(:reference_name => "cert-cc").select('DISTINCT value')
-				end
-
-				#
-				#
-				def apple_sa
-					where(:reference_name => "apple-sa").select('DISTINCT value')
-				end
-				
-				#
-				#
-				def icsa
-					where(:reference_name => "icsa").select('DISTINCT value')
-				end
-
-				#
-				#
-				def msvr
-					where(:reference_name => "msvr").select('DISTINCT value')
-				end
-
-				#
-				#
-				def usn
-					where(:reference_name => "usn").select('DISTINCT value')
-				end	
 			end
 		end
 	end

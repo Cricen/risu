@@ -1,4 +1,4 @@
-# Copyright (c) 2010-2013 Arxopia LLC.
+# Copyright (c) 2010-2012 Arxopia LLC.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -34,14 +34,6 @@ module Risu
 			belongs_to :family
 			has_many :references
 			has_many :individual_plugin_selections
-
-			def cvss_base_score=(cvss_base_score)
-				write_attribute(:cvss_base_score, cvss_base_score.to_f)
-			end
-
-			def cvss_base_score
-				read_attribute(:cvss_base_score).to_s
-			end
 
 			class << self
 

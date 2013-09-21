@@ -341,7 +341,7 @@ module Risu
 				#
 				# @return [StringIO] Object containing the generated PNG image
 				def recent_vuln_graph
-					g = Gruff::Pie.new(GRAPH_WIDTH)
+					g = Gruff::Bar.new(GRAPH_WIDTH)
 					g.title = "90 day overview"
 					g.sort = false
 					g.marker_count = 1
